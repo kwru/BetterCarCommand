@@ -4,15 +4,14 @@ function AC()
 	DrawNotification(false, false)
 end
 
+AddEventHandler("playerSpawned", function()
+    TriggerEvent("chat:addSuggestion", "/car", "Spawn any vehicle!", {{ name = "vehicle", help = "Vehicle name!"}})
+end)
+
 RegisterCommand("car", function(source, args, rawCommand)
-	AddEventHandler("playerSpawned", function()
-		TriggerEvent("chat:addSuggestion", "/car", "Spawn any vehicle!", { name = "vehicle", help = "Vehicle Name" })
-	end)
 	local x, y, z = table.unpack(GetOffsetFromEntityInWorldCoords(PlayerPedId()))
 	local veh = args[1]
-	if veh == nil then
-		veh = "adder"
-	end
+	if veh == nil then veh = "adder" end
 	vehiclehash = GetHashKey(veh)
 	RequestModel(vehiclehash)
 	Citizen.CreateThread(function()
